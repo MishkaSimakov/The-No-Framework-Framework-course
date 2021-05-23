@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\HomeController;
 use Zend\Diactoros\Response;
 
-$route->get('/', [App\Controllers\HomeController::class, 'index'])->setName('home');
+$route->get('/', [HomeController::class, 'index'])->setName('home');

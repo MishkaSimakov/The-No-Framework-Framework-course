@@ -9,6 +9,7 @@
     "league/container": "^3.3",
     "zendframework/zend-diactoros": "^2.2",
     "zendframework/zend-httphandlerrunner": "^1.1",
-    "league/route": "^5.0"
+    "league/route": "^5.0",
+    "twig/twig": "^3.3"
   }
 }
