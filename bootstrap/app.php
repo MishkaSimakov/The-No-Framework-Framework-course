@@ -6,12 +6,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(base_path())->safeLoad();
 
-$loader = new \App\Config\Loaders\ArrayLoader([
+$arrayLoader = new \App\Config\Loaders\ArrayLoader([
     'app' => base_path('config/app.php'),
     'cache' => base_path('config/cache.php'),
 ]);
 
-dd($loader->parse());
+$config = new \App\Config\Config();
+
+$config->load([$arrayLoader]);
 
 require_once __DIR__ . '/container.php';
 
