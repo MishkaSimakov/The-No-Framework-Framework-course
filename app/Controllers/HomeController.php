@@ -3,7 +3,6 @@
 
 namespace App\Controllers;
 
-
 use App\Views\View;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;

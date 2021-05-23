@@ -2,16 +2,9 @@
 
 session_start();
 
-function dd(...$vars)
-{
-    var_dump($vars);
-
-    die();
-}
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/..//')->safeLoad();
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(base_path())->safeLoad();
 
 require_once __DIR__ . '/container.php';
 

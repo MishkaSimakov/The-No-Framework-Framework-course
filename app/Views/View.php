@@ -8,7 +8,7 @@ use Zend\Diactoros\Response;
 
 class View
 {
-    protected $twig;
+    protected Environment $twig;
 
     public function __construct(Environment $twig)
     {
