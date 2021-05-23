@@ -10,7 +10,7 @@ if (!function_exists('base_path')) {
 if (!function_exists('dd')) {
     function dd(...$vars): void
     {
-        var_dump($vars);
+        dump($vars);
 
         die();
     }
