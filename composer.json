@@ -17,6 +17,7 @@
     "league/route": "^5.0",
     "twig/twig": "^3.3",
     "symfony/var-dumper": "^5.2",
-    "doctrine/orm": "^2.8"
+    "doctrine/orm": "^2.8",
+    "vlucas/valitron": "^1.4"
   }
 }

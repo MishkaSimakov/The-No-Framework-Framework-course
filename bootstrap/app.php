@@ -12,4 +12,8 @@ $route = $container->get(\League\Route\Router::class);
 
 require_once __DIR__ . '/../routes/web.php';
 
-$response = $route->dispatch($container->get('request'));
+try {
+    $response = $route->dispatch($container->get('request'));
+} catch (Exception $exception) {
+    dd($exception);
+}
