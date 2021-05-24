@@ -3,7 +3,9 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use App\Views\View;
+use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 
@@ -11,8 +13,9 @@ class HomeController
 {
     protected View $view;
 
-    public function __construct(View $view)
+    public function __construct(View $view, EntityManager $db)
     {
+        $this->db = $db;
         $this->view = $view;
     }
 
@@ -20,8 +23,8 @@ class HomeController
     {
         $response = new Response();
 
-        return $this->view->render($response, 'home.twig', [
-            'name' => 'Billy'
-        ]);
+        $user = $this->db->getRepository(User::class)->find(1);
+
+        return $this->view->render($response, 'home.twig', compact('user'));
     }
 }
