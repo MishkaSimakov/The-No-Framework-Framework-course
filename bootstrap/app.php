@@ -15,7 +15,10 @@ require_once __DIR__ . '/../routes/web.php';
 try {
     $response = $route->dispatch($container->get('request'));
 } catch (Exception $exception) {
-    $handler = new \App\Exceptions\Handler($exception);
+    $handler = new \App\Exceptions\Handler(
+        $exception,
+        $container->get(\App\Session\SessionStore::class)
+    );
 
     $response = $handler->respond();
 }
