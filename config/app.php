@@ -17,5 +17,6 @@ return [
     'middleware' => [
         \App\Middleware\ShareValidationErrors::class,
         \App\Middleware\ClearValidationErrors::class,
+        \App\Middleware\Authenticate::class,
     ]
 ];

@@ -6,12 +6,15 @@ use App\Auth\Hashing\Hasher;
 use App\Models\User;
 use App\Session\SessionStore;
 use Doctrine\ORM\EntityManager;
+use Exception;
 
 class Auth
 {
     protected EntityManager $db;
     protected Hasher $hasher;
     protected SessionStore $session;
+
+    protected User $user;
 
     public function __construct(EntityManager $db, Hasher $hasher, SessionStore $session)
     {
@@ -33,9 +36,40 @@ class Auth
         return true;
     }
 
+    public function user(): User
+    {
+        return $this->user;
+    }
+
+    public function hasUserInSession()
+    {
+        return $this->session->exists($this->key());
+    }
+
+    public function setUserFromSession()
+    {
+        $user = $this->getById($this->session->get($this->key()));
+
+        if (!$user) {
+            throw new Exception();
+        }
+
+        $this->user = $user;
+    }
+
+    protected function getById(int $id): User
+    {
+        return $this->db->getRepository(User::class)->find($id);
+    }
+
+    protected function key(): string
+    {
+        return 'id';
+    }
+
     protected function setUserSession(User $user)
     {
-        $this->session->set('id', $user->id);
+        $this->session->set($this->key(), $user->{$this->key()});
     }
 
     protected function hasValidCredentials(User $user, $password)
