@@ -6,7 +6,7 @@ namespace App\Models;
 /**
  * @Entity @Table(name="users")
  */
-class User
+class User extends Model
 {
 
     /**
@@ -39,10 +39,4 @@ class User
      * @remember_identifier @Column(type="string")
      */
     protected $remember_identifier;
-
-
-    public function getName()
-    {
-        return $this->name;
-    }
 }
