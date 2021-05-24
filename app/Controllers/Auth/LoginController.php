@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Controllers;
+namespace App\Controllers\Auth;
 
 use App\Views\View;
 use Zend\Diactoros\Response;
 
-class HomeController
+class LoginController
 {
     protected View $view;
 
@@ -19,6 +19,6 @@ class HomeController
     {
         $response = new Response();
 
-        return $this->view->render($response, 'home.twig');
+        return $this->view->render($response, 'auth/login.twig');
     }
 }

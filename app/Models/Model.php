@@ -13,6 +13,6 @@ abstract class Model
 
     public function __isset(string $name): bool
     {
-        return property_exists($this, $name)
+        return property_exists($this, $name);
     }
 }
