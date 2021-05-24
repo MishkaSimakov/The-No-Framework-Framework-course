@@ -15,5 +15,7 @@ require_once __DIR__ . '/../routes/web.php';
 try {
     $response = $route->dispatch($container->get('request'));
 } catch (Exception $exception) {
-    dd($exception);
+    $handler = new \App\Exceptions\Handler($exception);
+
+    $response = $handler->respond();
 }
