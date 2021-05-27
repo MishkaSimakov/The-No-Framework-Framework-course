@@ -31,9 +31,27 @@ class Auth
             return false;
         }
 
+        if ($this->needsRehash($user)) {
+            $this->rehashPassword($user, $password);
+        }
+
         $this->setUserSession($user);
 
         return true;
+    }
+
+    protected function needsRehash(User $user)
+    {
+        return $this->hasher->needsRehash($user->password);
+    }
+
+    protected function rehashPassword(User $user, string $password)
+    {
+        $this->db->getRepository(User::class)->find($user->id)->update([
+            'password' => $this->hasher->create($password)
+        ]);
+
+        $this->db->flush();
     }
 
     public function user(): User
