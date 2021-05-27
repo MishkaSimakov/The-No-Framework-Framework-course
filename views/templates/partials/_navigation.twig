@@ -12,12 +12,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
+
+                {% if auth.check %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
+                    </li>
+                {% endif %}
             </ul>
 
             <ul class="navbar-nav">
-                {% if false %}
+                {% if auth.check %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Misha Simakov</a>
+                        <a class="nav-link" href="#">{{ auth.user.name }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sign out</a>
