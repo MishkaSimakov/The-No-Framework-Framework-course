@@ -11,6 +11,7 @@ return [
         \App\Providers\SessionServiceProvider::class,
         \App\Providers\HashServiceProvider::class,
         \App\Providers\AuthServiceProvider::class,
+        \App\Providers\FlashServiceProvider::class,
         \App\Providers\ViewShareServiceProvider::class,
     ],
 

@@ -3,11 +3,9 @@
 namespace App\Providers;
 
 use App\Auth\Auth;
+use App\Session\Flash;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
-use Twig\Environment;
-use Twig\Extension\DebugExtension;
-use Twig\Loader\FilesystemLoader;
 use App\Views\View;
 
 class ViewShareServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
@@ -19,6 +17,7 @@ class ViewShareServiceProvider extends AbstractServiceProvider implements Bootab
         $container->get(View::class)->share([
             'config' => $container->get('config'),
             'auth' => $container->get(Auth::class),
+            'flash' => $container->get(Flash::class),
         ]);
     }
 
