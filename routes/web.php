@@ -10,4 +10,7 @@ $route->group('/auth', function ($route) {
     $route->post('/login', [LoginController::class, 'login']);
 
     $route->post('/logout', [\App\Controllers\Auth\LogoutController::class, 'logout'])->setName('auth.logout');
+
+    $route->get('/register', [\App\Controllers\Auth\RegisterController::class, 'index'])->setName('auth.register');
+    $route->post('/register', [\App\Controllers\Auth\RegisterController::class, 'register']);
 });
