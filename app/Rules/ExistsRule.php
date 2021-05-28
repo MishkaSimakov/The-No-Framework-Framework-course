@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Doctrine\ORM\EntityManager;
 
-class ExistsRule
+class ExistsRule implements Rule
 {
     protected EntityManager $db;
 
@@ -13,7 +13,7 @@ class ExistsRule
         $this->db = $db;
     }
 
-    public function validate($field, $value, $params, $fields)
+    public function validate($field, $value, $params, $fields): bool
     {
         $result = $this->db->getRepository($params[0])
             ->findOneBy([
@@ -21,5 +21,10 @@ class ExistsRule
             ]);
 
         return $result === null;
+    }
+
+    public function message(): string
+    {
+        return 'is already in use';
     }
 }
