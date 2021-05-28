@@ -8,4 +8,6 @@ $route->get('/', [HomeController::class, 'index'])->setName('home');
 $route->group('/auth', function ($route) {
     $route->get('/login', [LoginController::class, 'index'])->setName('auth.login');
     $route->post('/login', [LoginController::class, 'login']);
+
+    $route->post('/logout', [\App\Controllers\Auth\LogoutController::class, 'logout'])->setName('auth.logout');
 });

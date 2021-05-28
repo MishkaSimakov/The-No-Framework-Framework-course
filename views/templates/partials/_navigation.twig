@@ -26,7 +26,11 @@
                         <a class="nav-link" href="#">{{ auth.user.name }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sign out</a>
+                        <a class="nav-link" href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout').submit();"
+                        >
+                            Sign out
+                        </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
@@ -40,3 +44,7 @@
         </div>
     </div>
 </nav>
+
+<form action="{{ route('auth.logout') }}" method="POST" class="d-none" id="logout">
+    <input type="hidden" name="{{ csrf.key }}" value="{{ csrf.token }}">
+</form>
