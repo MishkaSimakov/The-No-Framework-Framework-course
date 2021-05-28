@@ -13,6 +13,7 @@ return [
         \App\Providers\AuthServiceProvider::class,
         \App\Providers\FlashServiceProvider::class,
         \App\Providers\CsrfServiceProvider::class,
+        \App\Providers\ValidationServiceProvider::class,
         \App\Providers\ViewShareServiceProvider::class,
     ],
 
