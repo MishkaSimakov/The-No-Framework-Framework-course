@@ -14,6 +14,7 @@ return [
         \App\Providers\FlashServiceProvider::class,
         \App\Providers\CsrfServiceProvider::class,
         \App\Providers\ValidationServiceProvider::class,
+        \App\Providers\CookieServiceProvider::class,
         \App\Providers\ViewShareServiceProvider::class,
     ],
 
