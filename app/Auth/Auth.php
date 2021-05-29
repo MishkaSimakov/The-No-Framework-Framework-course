@@ -60,6 +60,28 @@ class Auth
         return true;
     }
 
+    public function hasRecaller()
+    {
+        return $this->cookie->exists('remember');
+    }
+
+    public function setUserFromCookie()
+    {
+        [$identifier, $token] = $this->recaller->splitCookieValue(
+            $this->cookie->get('remember')
+        );
+
+        $user = $this->db->getRepository(User::class)->findOneBy([
+            'remember_identifier' => $identifier
+        ]);
+
+        if (!$this->recaller->validateToken($token, $user->remember_token)) {
+            throw new Exception();
+        }
+
+        $this->setUserSession($user);
+    }
+
     protected function setRememberToken($user)
     {
         [$identifier, $token] = $this->recaller->generate();

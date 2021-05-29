@@ -16,6 +16,16 @@ class Recaller
         return $identifier . $this->separator . $token;
     }
 
+    public function splitCookieValue($value): array
+    {
+        return explode($this->separator, $value);
+    }
+
+    public function validateToken(string $plain, string $hash): bool
+    {
+        return $this->getTokenHashForDatabase($plain) === $hash;
+    }
+
     public function getTokenHashForDatabase(string $token)
     {
         return hash('sha256', $token);
