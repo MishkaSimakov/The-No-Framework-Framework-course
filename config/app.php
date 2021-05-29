@@ -21,8 +21,8 @@ return [
     'middleware' => [
         \App\Middleware\ShareValidationErrors::class,
         \App\Middleware\ClearValidationErrors::class,
-        \App\Middleware\Authenticate::class,
         \App\Middleware\AuthenticateFromCookie::class,
+        \App\Middleware\Authenticate::class,
         \App\Middleware\CsrfGuard::class,
     ]
 ];

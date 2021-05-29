@@ -75,7 +75,21 @@ class Auth
             'remember_identifier' => $identifier
         ]);
 
+        if (!$user) {
+            $this->cookie->clear('remember');
+            return;
+        }
+
         if (!$this->recaller->validateToken($token, $user->remember_token)) {
+            $user->update([
+                'remember_identifier' => null,
+                'remember_token' => null
+            ]);
+
+            $this->db->flush();
+
+            $this->cookie->clear('remember');
+
             throw new Exception();
         }
 
