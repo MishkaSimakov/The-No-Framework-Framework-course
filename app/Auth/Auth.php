@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Auth\Hashing\Hasher;
+use App\Cookie\CookieJar;
 use App\Models\User;
 use App\Session\SessionStore;
 use Doctrine\ORM\EntityManager;
@@ -13,14 +14,24 @@ class Auth
     protected EntityManager $db;
     protected Hasher $hasher;
     protected SessionStore $session;
+    protected Recaller $recaller;
 
     protected User $user;
+    protected CookieJar $cookie;
 
-    public function __construct(EntityManager $db, Hasher $hasher, SessionStore $session)
+    public function __construct(
+        EntityManager $db,
+        Hasher $hasher,
+        SessionStore $session,
+        Recaller $recaller,
+        CookieJar $cookie
+    )
     {
         $this->db = $db;
         $this->hasher = $hasher;
         $this->session = $session;
+        $this->recaller = $recaller;
+        $this->cookie = $cookie;
     }
 
     public function logout()
@@ -28,7 +39,7 @@ class Auth
         $this->session->clear($this->key());
     }
 
-    public function attempt(string $username, string $password)
+    public function attempt(string $username, string $password, bool $remember = false)
     {
         $user = $this->getByUsername($username);
 
@@ -42,7 +53,28 @@ class Auth
 
         $this->setUserSession($user);
 
+        if ($remember) {
+            $this->setRememberToken($user);
+        }
+
         return true;
+    }
+
+    protected function setRememberToken($user)
+    {
+        [$identifier, $token] = $this->recaller->generate();
+
+        $this->cookie->set(
+            'remember',
+            $this->recaller->generateValueForCookie($identifier, $token)
+        );
+
+        $this->db->getRepository(User::class)->find($user->id)->update([
+            'remember_identifier' => $identifier,
+            'remember_token' => $this->recaller->getTokenHashForDatabase($token)
+        ]);
+
+        $this->db->flush();
     }
 
     protected function needsRehash(User $user)
