@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Rules\ExistsRule;
 use App\Rules\Rule;
-use Doctrine\ORM\EntityManager;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use ReflectionClass;

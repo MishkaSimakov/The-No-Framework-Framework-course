@@ -8,7 +8,6 @@ use App\Auth\Hashing\Hasher;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Views\View;
-use Doctrine\ORM\EntityManager;
 use League\Route\Router;
 use Psr\Http\Message\RequestInterface;
 use Zend\Diactoros\Response;
@@ -17,15 +16,13 @@ class RegisterController extends Controller
 {
     protected View $view;
     protected Hasher $hasher;
-    protected EntityManager $db;
     protected Auth $auth;
     protected Router $router;
 
-    public function __construct(View $view, Hasher $hasher, EntityManager $db, Auth $auth, Router $router)
+    public function __construct(View $view, Hasher $hasher, Auth $auth, Router $router)
     {
         $this->view = $view;
         $this->hasher = $hasher;
-        $this->db = $db;
         $this->auth = $auth;
         $this->router = $router;
     }
@@ -54,18 +51,11 @@ class RegisterController extends Controller
 
     protected function createUser(array $data)
     {
-        $user = new User();
-
-        $user->fill([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $this->hasher->create($data['password'])
         ]);
-
-        $this->db->persist($user);
-        $this->db->flush();
-
-        return $user;
     }
 
     protected function validateRegistration(RequestInterface $request)

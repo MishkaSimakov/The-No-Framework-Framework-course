@@ -8,7 +8,6 @@ use App\Auth\Providers\DatabaseProvider;
 use App\Auth\Recaller;
 use App\Cookie\CookieJar;
 use App\Session\SessionStore;
-use Doctrine\ORM\EntityManager;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
 class AuthServiceProvider extends AbstractServiceProvider
@@ -22,9 +21,7 @@ class AuthServiceProvider extends AbstractServiceProvider
         $container = $this->getContainer();
 
         $container->share(Auth::class, function () use ($container) {
-            $provider = new DatabaseProvider(
-                $container->get(EntityManager::class)
-            );
+            $provider = new DatabaseProvider();
 
             return new Auth(
                 $container->get(Hasher::class),

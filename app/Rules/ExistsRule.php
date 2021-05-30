@@ -2,23 +2,13 @@
 
 namespace App\Rules;
 
-use Doctrine\ORM\EntityManager;
+use App\Models\User;
 
 class ExistsRule implements Rule
 {
-    protected EntityManager $db;
-
-    public function __construct(EntityManager $db)
-    {
-        $this->db = $db;
-    }
-
     public function validate($field, $value, $params, $fields): bool
     {
-        $result = $this->db->getRepository($params[0])
-            ->findOneBy([
-                $field => $value
-            ]);
+        $result = User::where($field, $value)->first();
 
         return $result === null;
     }
