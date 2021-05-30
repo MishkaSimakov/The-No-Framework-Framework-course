@@ -25,4 +25,4 @@ $route->group('', function ($route) {
     $route->post('auth/register', [RegisterController::class, 'register']);
 })->middleware($container->get(Guest::class));
 
-
+$route->get('/posts', [\App\Controllers\PostController::class, 'index'])->setName('posts.index');

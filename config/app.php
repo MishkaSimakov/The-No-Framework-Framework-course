@@ -16,6 +16,7 @@ return [
         \App\Providers\ValidationServiceProvider::class,
         \App\Providers\CookieServiceProvider::class,
         \App\Providers\ViewShareServiceProvider::class,
+        \App\Providers\PaginationServiceProvider::class,
     ],
 
     'middleware' => [

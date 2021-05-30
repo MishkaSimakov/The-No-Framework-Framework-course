@@ -19,6 +19,7 @@
     "symfony/var-dumper": "^5.2",
     "doctrine/orm": "^2.8",
     "vlucas/valitron": "^1.4",
-    "illuminate/database": "^8.44"
+    "illuminate/database": "^8.44",
+    "illuminate/pagination": "^8.44"
   }
 }
